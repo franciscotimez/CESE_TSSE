@@ -5,12 +5,13 @@
 
 #define LED_OFFSET      1
 #define LSB             1
+#define LED_MAX         16
 
 static uint16_t * direccion;
 static LedError_t RegistrarError;
 
 uint16_t LedToMask(uint8_t x){
-    if(x > 16){
+    if(x > LED_MAX){
         RegistrarError();
         return 0;
     }
