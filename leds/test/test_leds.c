@@ -66,13 +66,12 @@ void test_apagar_todos(void){
 }
 
 // Se puede consultar el estado de un LED.
-void test_consultar_uno(void){
-    Leds_Off_All();
-    Leds_On(1);
-    Leds_On(3);
-    Leds_On(16);
-    TEST_ASSERT_TRUE(Leds_State(16));
-    TEST_ASSERT_TRUE(Leds_State(3));
-    TEST_ASSERT_TRUE(Leds_State(1));
+void test_consultar_uno_apagado(void){
     TEST_ASSERT_FALSE(Leds_State(15));
+}
+
+// Se puede consultar el estado de un LED.
+void test_consultar_uno_encendido(void){
+    Leds_On(4);
+    TEST_ASSERT_TRUE(Leds_State(4));
 }
