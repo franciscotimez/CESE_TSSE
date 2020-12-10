@@ -1,5 +1,6 @@
 #include "unity.h"
 #include "topic_gen.h"
+#include <string.h>
 #include "../src/tiposSensores.h"
 
 // La estructura del topico deberia ser: [NODO_ID]/[sensor_t.id]/[sensor_t.tipo]/[sensor_t.label]
@@ -8,7 +9,18 @@ sensor_t sensor1;
 // Generar topicos sin caracteres '+' '$' '#'
 void test_case_1()
 {
-    TEST_FAIL_MESSAGE("FALLA CASO 1");
+    sensor_t Sensor1;
+    Sensor1.id = 123;
+    Sensor1.tipo = DHT22;
+    Sensor1.pin = 3;
+    Sensor1.periodo = 60;
+    strcpy(Sensor1.label, "Sens1");
+
+    char topicEsperado[] = "0123456789AB/123/DHT22/Sens1";
+
+    genTopic(&Sensor1);
+
+    TEST_ASSERT_EQUAL_STRING(topicEsperado, Sensor1.topic);
 }
 
 // Generar topicos sin '/' al inicio
