@@ -37,7 +37,17 @@ void test_case_1()
 // Generar topicos sin '/' al inicio
 void test_case_2()
 {
-    TEST_FAIL_MESSAGE("FALLA CASO 2");
+    sensor_t Sensor2;
+    Sensor2.id = 46;
+    Sensor2.tipo = DHT11;
+    Sensor2.pin = 5;
+    Sensor2.periodo = 60;
+    strcpy(Sensor2.label, "Sensor2");
+
+    genTopic(&Sensor2);
+
+    if (Sensor2.topic[0] == '/')
+        TEST_FAIL_MESSAGE("Se enconctro '/' al inicio");
 }
 
 // Generar topicos sin '/' al final
