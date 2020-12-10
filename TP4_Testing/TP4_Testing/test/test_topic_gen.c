@@ -9,18 +9,29 @@ sensor_t sensor1;
 // Generar topicos sin caracteres '+' '$' '#'
 void test_case_1()
 {
+    char char_exclude[] = "+$#";
+    char message[20];
+    uint8_t i;
+
     sensor_t Sensor1;
     Sensor1.id = 123;
     Sensor1.tipo = DHT22;
     Sensor1.pin = 3;
     Sensor1.periodo = 60;
-    strcpy(Sensor1.label, "Sens1");
-
-    char topicEsperado[] = "0123456789AB/123/DHT22/Sens1";
+    strcpy(Sensor1.label, "#S+ens$1");
 
     genTopic(&Sensor1);
 
-    TEST_ASSERT_EQUAL_STRING(topicEsperado, Sensor1.topic);
+    i = 0;
+    while (char_exclude[i] != '\0')
+    {
+        if (strchr(Sensor1.topic, char_exclude[i]) != NULL)
+        {
+            sprintf(message, "Se encontro %c", char_exclude[i]);
+            TEST_FAIL_MESSAGE(message);
+        }
+        i++;
+    }
 }
 
 // Generar topicos sin '/' al inicio
