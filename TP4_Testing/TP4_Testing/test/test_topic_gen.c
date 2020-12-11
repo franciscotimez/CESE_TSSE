@@ -50,10 +50,23 @@ void test_case_2()
         TEST_FAIL_MESSAGE("Se enconctro '/' al inicio");
 }
 
-// Generar topicos sin '/' al final
+// Generar topicos sin '/' al final 0123456789AB/46/1/Sensor3/
 void test_case_3()
 {
-    TEST_FAIL_MESSAGE("FALLA CASO 3");
+    uint8_t index;
+    sensor_t Sensor3;
+    Sensor3.id = 46;
+    Sensor3.tipo = DHT11;
+    Sensor3.pin = 5;
+    Sensor3.periodo = 60;
+    strcpy(Sensor3.label, "Sensor3");
+
+    genTopic(&Sensor3);
+
+    index = strlen(Sensor3.topic);
+
+    if (Sensor3.topic[index-1] == '/')
+        TEST_FAIL_MESSAGE("Se enconctro '/' al final");
 }
 
 // Generar topicos con 4 niveles
