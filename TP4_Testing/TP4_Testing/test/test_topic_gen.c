@@ -3,6 +3,8 @@
 #include <string.h>
 #include "../src/tiposSensores.h"
 
+#define TOPIC_LEVELS 4
+
 // La estructura del topico deberia ser: [NODO_ID]/[sensor_t.id]/[sensor_t.tipo]/[sensor_t.label]
 sensor_t sensor1;
 
@@ -65,14 +67,32 @@ void test_case_3()
 
     index = strlen(Sensor3.topic);
 
-    if (Sensor3.topic[index-1] == '/')
+    if (Sensor3.topic[index - 1] == '/')
         TEST_FAIL_MESSAGE("Se enconctro '/' al final");
 }
 
 // Generar topicos con 4 niveles
 void test_case_4()
 {
-    TEST_FAIL_MESSAGE("FALLA CASO 4");
+    char *point_char;
+    sensor_t Sensor4;
+    Sensor4.id = 46;
+    Sensor4.tipo = DHT11;
+    Sensor4.pin = 5;
+    Sensor4.periodo = 60;
+    strcpy(Sensor4.label, "Sensor3");
+
+    genTopic(&Sensor4);
+
+    point_char = Sensor4.topic;
+
+    for (uint8_t i = 0; i < TOPIC_LEVELS - 1; i++)
+    {
+        point_char = strchr(point_char, '/');
+        if (point_char == NULL)
+            TEST_FAIL_MESSAGE("NO TIENE 4 NIVELES");
+        point_char++;
+    }
 }
 
 // Generar topicos que contengan minusculas unicamente.
