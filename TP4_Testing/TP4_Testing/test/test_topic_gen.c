@@ -98,10 +98,26 @@ void test_case_4()
 // Generar topicos que contengan minusculas unicamente.
 void test_case_5()
 {
-    TEST_FAIL_MESSAGE("FALLA CASO 5");
+    uint8_t index_end;
+    sensor_t Sensor5;
+    Sensor5.id = 46;
+    Sensor5.tipo = DHT11;
+    Sensor5.pin = 5;
+    Sensor5.periodo = 60;
+    strcpy(Sensor5.label, "Sensor5");
+
+    genTopic(&Sensor5);
+
+    index_end = strlen(Sensor5.topic);
+
+    for(uint8_t i = 0 ; i < index_end; i++)
+    {
+        if(Sensor5.topic[i] >= 'A' && Sensor5.topic[i] <= 'Z')
+            TEST_FAIL_MESSAGE("SE ENCONTRARON MAYUSCULAS");
+    }   
 }
 
-// Generar topicos con la palabra 'ERROR' si falta algun parametro
+// Generar topicos con la palabra 'error' si falta algun parametro
 void test_case_6()
 {
     TEST_FAIL_MESSAGE("FALLA CASO 6");
@@ -113,7 +129,7 @@ void test_case_7()
     TEST_FAIL_MESSAGE("FALLA CASO 7");
 }
 
-// Generar topicos con [NODO_ID]/[sensor_t.id]/E/L en caso que el topico exceda el tamanho del buffer
+// Generar topicos con [NODO_ID]/[sensor_t.id]/e/l en caso que el topico exceda el tamanho del buffer
 void test_case_8()
 {
     TEST_FAIL_MESSAGE("FALLA CASO 8");

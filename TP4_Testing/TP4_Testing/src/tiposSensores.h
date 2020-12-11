@@ -3,7 +3,8 @@
 
 #include <stdint.h>
 #define TOPIC_LENGTH 60
-#define NODO_ID "0123456789AB"
+#define NODO_ID "0123456789ab"
+
 // Tipos de sensores admitidos en el sistema
 typedef enum{
     DHT22,

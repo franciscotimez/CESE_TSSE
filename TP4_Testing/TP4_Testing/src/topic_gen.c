@@ -6,21 +6,20 @@
 void genTopic(sensor_t *sensor)
 {
     char label_l[10];
-    char char_invalid[] = "+$#";
-    uint8_t i;
+    uint8_t index_end;
 
     strcpy(label_l, sensor->label);
-    i = 0;
-    while (char_invalid[i] != '\0')
+    index_end = strlen(label_l);
+
+    for (uint8_t i = 0; i < index_end; i++)
     {
-        if (strchr(sensor->label, char_invalid[i]) != NULL)
+        if (label_l[i] >= 'A' && label_l[i] <= 'Z' || label_l[i] == '#' || label_l[i] == '$' || label_l[i] == '+')
         {
-            strcpy(label_l, "ERROR");
+            strcpy(label_l, "error");
             break;
         }
-        i++;
     }
-        
+
     sprintf(sensor->topic, "%s/%d/%d/%s", NODO_ID, sensor->id, sensor->tipo, label_l);
     printf(sensor->topic);
 }
