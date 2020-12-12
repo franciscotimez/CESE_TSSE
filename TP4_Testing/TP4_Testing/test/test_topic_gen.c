@@ -57,8 +57,8 @@ void test_case_3()
 {
     uint8_t index;
     sensor_t Sensor3;
-    Sensor3.id = 46;
-    Sensor3.tipo = DHT11;
+    Sensor3.id = 15;
+    Sensor3.tipo = MAX6675;
     Sensor3.pin = 5;
     Sensor3.periodo = 60;
     strcpy(Sensor3.label, "Sensor3");
@@ -76,8 +76,8 @@ void test_case_4()
 {
     char *point_char;
     sensor_t Sensor4;
-    Sensor4.id = 46;
-    Sensor4.tipo = DHT11;
+    Sensor4.id = 77;
+    Sensor4.tipo = D_I_P;
     Sensor4.pin = 5;
     Sensor4.periodo = 60;
     strcpy(Sensor4.label, "Sensor3");
@@ -100,8 +100,8 @@ void test_case_5()
 {
     uint8_t index_end;
     sensor_t Sensor5;
-    Sensor5.id = 46;
-    Sensor5.tipo = DHT11;
+    Sensor5.id = 1;
+    Sensor5.tipo = D_O;
     Sensor5.pin = 5;
     Sensor5.periodo = 60;
     strcpy(Sensor5.label, "Sensor5");
@@ -110,17 +110,24 @@ void test_case_5()
 
     index_end = strlen(Sensor5.topic);
 
-    for(uint8_t i = 0 ; i < index_end; i++)
+    for (uint8_t i = 0; i < index_end; i++)
     {
-        if(Sensor5.topic[i] >= 'A' && Sensor5.topic[i] <= 'Z')
+        if (Sensor5.topic[i] >= 'A' && Sensor5.topic[i] <= 'Z')
             TEST_FAIL_MESSAGE("SE ENCONTRARON MAYUSCULAS");
-    }   
+    }
 }
 
 // Generar topicos con la palabra 'error' si falta algun parametro
 void test_case_6()
 {
-    TEST_FAIL_MESSAGE("FALLA CASO 6");
+    uint8_t index_end;
+    sensor_t Sensor6;
+
+    genTopic(&Sensor6);
+
+    char topicEsperado[] = "0123456789ab/error/error/error";
+
+    TEST_ASSERT_EQUAL_STRING(topicEsperado, Sensor6.topic);
 }
 
 // Generar topicos con 12 caracteres en el parametro [NODO_ID] (puede que tenga '0' como primer caracter y se este ignorando)
