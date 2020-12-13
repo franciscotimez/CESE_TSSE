@@ -122,6 +122,11 @@ void test_case_6()
 {
     uint8_t index_end;
     sensor_t Sensor6;
+    Sensor6.id = 0;
+    Sensor6.tipo = error;
+    Sensor6.pin = 0;
+    Sensor6.periodo = 0;
+    strcpy(Sensor6.label, "");
 
     genTopic(&Sensor6);
 
@@ -139,5 +144,16 @@ void test_case_7()
 // Generar topicos con [NODO_ID]/[sensor_t.id]/e/l en caso que el topico exceda el tamanho del buffer
 void test_case_8()
 {
-    TEST_FAIL_MESSAGE("FALLA CASO 8");
+    sensor_t Sensor8;
+    Sensor8.id = 128;
+    Sensor8.tipo = D_O;
+    Sensor8.pin = 5;
+    Sensor8.periodo = 60;
+    strcpy(Sensor8.label, "erw");
+
+    genTopic(&Sensor8);
+
+    char topicEsperado[] = "0123456789ab/128/e/l";
+
+    TEST_ASSERT_EQUAL_STRING(topicEsperado, Sensor8.topic);
 }

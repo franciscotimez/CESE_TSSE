@@ -4,7 +4,9 @@
 
 #include <stdint.h>
 
-#define TOPIC_LENGTH 60
+#define TOPIC_MIN_LENGTH 21 // NO EDITAR!
+#define TOPIC_LENGTH 80
+#define LABEL_LENGTH 20
 #define NODO_ID "0123456789ab"
 
 // Tipos de sensores admitidos en el sistema
@@ -39,7 +41,7 @@ typedef struct
     tipo_t tipo;
     uint8_t pin;              // pin asociado al sensor (en caso del MAX6675 no aplica)
     uint32_t periodo;         // Periodo de muestreo del sensor
-    char label[10];           // Etiqueta para el sensor
+    char label[LABEL_LENGTH];           // Etiqueta para el sensor
     char topic[TOPIC_LENGTH]; // Topico al que se envian los datos (esto deberia generarse de acuerdo a los datos anteriores)
 } sensor_t;
 
