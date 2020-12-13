@@ -138,7 +138,17 @@ void test_case_6()
 // Generar topicos con 12 caracteres en el parametro [NODO_ID] (puede que tenga '0' como primer caracter y se este ignorando)
 void test_case_7()
 {
-    TEST_FAIL_MESSAGE("FALLA CASO 7");
+    sensor_t Sensor7;
+    Sensor7.id = 7;
+    Sensor7.tipo = D_I_P;
+    Sensor7.pin = 11;
+    Sensor7.periodo = 200;
+    strcpy(Sensor7.label, "Sensor7");
+
+    genTopic(&Sensor7);
+
+    if (Sensor7.topic[12] != '/')
+        TEST_FAIL_MESSAGE("FALLA EN EL CAMPO NODO_ID");
 }
 
 // Generar topicos con [NODO_ID]/[sensor_t.id]/e/l en caso que el topico exceda el tamanho del buffer
@@ -149,11 +159,11 @@ void test_case_8()
     Sensor8.tipo = D_O;
     Sensor8.pin = 5;
     Sensor8.periodo = 60;
-    strcpy(Sensor8.label, "Temperatura");
+    strcpy(Sensor8.label, "temp_horno_secado");
 
     genTopic(&Sensor8);
 
-    //char topicEsperado[22] = "0123456789ab/128/e/l";
+    char topicEsperado[22] = "0123456789ab/128/e/l";
 
-    //TEST_ASSERT_EQUAL_STRING(topicEsperado, Sensor8.topic);
+    TEST_ASSERT_EQUAL_STRING(topicEsperado, Sensor8.topic);
 }

@@ -5,11 +5,13 @@
 #include <stdint.h>
 
 #define TOPIC_MIN_LENGTH 21 // NO EDITAR!
-#define TOPIC_LENGTH 40
+#define TOPIC_LENGTH 30
 #define LABEL_LENGTH 20
 #define NODO_ID "0123456789ab"
 #define ERROR_MSG "error"
 #define ERROR_LENGTH 6
+#define TOPIC_LEVEL 4
+
 
 // Tipos de sensores admitidos en el sistema
 typedef enum

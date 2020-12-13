@@ -30,10 +30,8 @@ void genTopic(sensor_t *sensor)
     else
         sprintf(id_label_l, "%d", sensor->id);
 
-    if ((strlen(NODO_ID) + strlen(id_label_l) + strlen(etiqueta_point[sensor->tipo]) + strlen(label_l) + 3) > TOPIC_LENGTH)
+    if ((strlen(NODO_ID) + strlen(id_label_l) + strlen(etiqueta_point[sensor->tipo]) + strlen(label_l) + TOPIC_LEVEL -1) > TOPIC_LENGTH)
         sprintf(sensor->topic, "%s/%s/e/l", NODO_ID, id_label_l);
     else
         sprintf(sensor->topic, "%s/%s/%s/%s", NODO_ID, id_label_l, etiqueta_point[sensor->tipo], label_l);
-
-    printf("TopicGen--> %s, length: %d", sensor->topic, index_end);
 }
